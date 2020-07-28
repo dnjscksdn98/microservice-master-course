@@ -28,7 +28,6 @@ public class UserDto implements Serializable {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .encryptedPassword("test")
                 .build();
     }
 
