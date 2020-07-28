@@ -4,6 +4,9 @@ server:
 gateway:
   ip: host.docker.internal
 
+login:
+  path: /users/login
+
 jwt:
   secretKey: fh279rfhf0923yrfwhfk2fh8923hjfkfheowf8123gfhidjfnv384jvaodfeb83gvbu42r93jbknl
   authorizationHeader: Authorization

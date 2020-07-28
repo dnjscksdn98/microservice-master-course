@@ -81,6 +81,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes()))
                 .compact();
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + " " + token);
+        response.addHeader("token", token);
     }
 }
