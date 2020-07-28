@@ -5,6 +5,9 @@ spring:
   application:
     name: zuul
 
+ribbon:
+  ReadTimeout: 60000
+
 eureka:
   client:
     serviceUrl:

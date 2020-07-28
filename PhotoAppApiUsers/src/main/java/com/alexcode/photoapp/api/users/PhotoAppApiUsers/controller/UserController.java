@@ -2,6 +2,7 @@ package com.alexcode.photoapp.api.users.PhotoAppApiUsers.controller;
 
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.dto.UserDto;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.request.CreateUserRequest;
+import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.UserResponse;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -27,9 +28,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
         UserDto userDto = UserDto.of(request);
-        UserDto response = userService.createUser(userDto);
+        UserResponse response = UserResponse.of(userService.createUser(userDto));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

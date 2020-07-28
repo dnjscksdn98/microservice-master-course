@@ -18,19 +18,19 @@ public class UserEntity implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "user_id", nullable = false, unique = true)
     private String userId;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "encrypted_password", nullable = false)
     private String encryptedPassword;
 
     public static UserEntity of(UserDto userDto) {
