@@ -1,6 +1,14 @@
 server:
   port: 8011
 
+api:
+  login:
+    path: /users-ws/users/login
+  registration:
+    path: /users-ws/users
+  h2console:
+    path: /users-ws/h2-console/**
+
 spring:
   application:
     name: zuul
