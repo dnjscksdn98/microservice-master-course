@@ -49,7 +49,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        return new AuthenticationFilter(jwtConfig, userService, authenticationManager());
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(jwtConfig, userService, authenticationManager());
+        authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.path"));
+        return authenticationFilter;
     }
 
     @Override
