@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: PhotoAppApiConfigServer
+
+  cloud:
+    config:
+      server:
+        git:
+          uri:
+          username:
+          password:
+          cloneOnStart: true
+
+server:
+  port: 8012
