@@ -24,6 +24,12 @@ spring:
   datasource:
     url: jdbc:h2:~/database/testdb
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
   h2:
     console:
       enabled: true

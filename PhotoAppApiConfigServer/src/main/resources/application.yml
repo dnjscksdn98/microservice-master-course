@@ -6,10 +6,22 @@ spring:
     config:
       server:
         git:
-          uri:
-          username:
-          password:
+          uri: https://github.com/dnjscksdn98/photo-app-config-server
+          username: dnjscksdn98@gmail.com
+          password: alexwon98@
           cloneOnStart: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 8012
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
