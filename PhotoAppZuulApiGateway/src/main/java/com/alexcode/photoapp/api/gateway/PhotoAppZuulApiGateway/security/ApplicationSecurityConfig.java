@@ -32,6 +32,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(env.getProperty("api.h2console.path")).permitAll()
+                .antMatchers(env.getProperty("api.zuul.actuator.path")).permitAll()
+                .antMatchers(env.getProperty("api.users.actuator.path")).permitAll()
                 .antMatchers(HttpMethod.POST, env.getProperty("api.registration.path")).permitAll()
                 .antMatchers(HttpMethod.POST, env.getProperty("api.login.path")).permitAll()
                 .anyRequest().authenticated()

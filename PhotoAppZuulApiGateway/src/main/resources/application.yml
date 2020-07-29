@@ -8,6 +8,12 @@ api:
     path: /users-ws/users
   h2console:
     path: /users-ws/h2-console/**
+  zuul:
+    actuator:
+      path: /actuator/*
+  users:
+    actuator:
+      path: /users-ws/actuator/*
 
 spring:
   application:
@@ -32,3 +38,13 @@ jwt:
   authorizationHeader: Authorization
   tokenPrefix: Bearer
   tokenExpirationDays: 7
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - beans
+          - health
+          - routes
+          - httptrace
