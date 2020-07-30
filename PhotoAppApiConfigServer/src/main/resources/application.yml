@@ -2,13 +2,16 @@ spring:
   application:
     name: PhotoAppApiConfigServer
 
+  profiles:
+    active: git
+
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/dnjscksdn98/photo-app-config-server
-          username: dnjscksdn98@gmail.com
-          password: alexwon98@
+          uri: {github.uri}
+          username: {github.username}
+          password: {github.password}
           cloneOnStart: true
 
   rabbitmq:
