@@ -2,9 +2,11 @@ package com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.dto;
 
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.entity.UserEntity;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.request.CreateUserRequest;
+import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.AlbumDetailResponse;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,6 +22,7 @@ public class UserDto implements Serializable {
     private String email;
     private String password;
     private String encryptedPassword;
+    private List<AlbumDetailResponse> albums;
 
     public static UserDto of(CreateUserRequest request) {
         return UserDto.builder()
@@ -38,6 +41,17 @@ public class UserDto implements Serializable {
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
                 .encryptedPassword(userEntity.getEncryptedPassword())
+                .build();
+    }
+
+    public static UserDto of(UserEntity userEntity, List<AlbumDetailResponse> albums) {
+        return UserDto.builder()
+                .userId(userEntity.getUserId())
+                .firstName(userEntity.getFirstName())
+                .lastName(userEntity.getLastName())
+                .email(userEntity.getEmail())
+                .encryptedPassword(userEntity.getEncryptedPassword())
+                .albums(albums)
                 .build();
     }
 }

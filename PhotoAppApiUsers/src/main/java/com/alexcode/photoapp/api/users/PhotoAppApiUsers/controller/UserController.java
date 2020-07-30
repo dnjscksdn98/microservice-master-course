@@ -2,7 +2,8 @@ package com.alexcode.photoapp.api.users.PhotoAppApiUsers.controller;
 
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.dto.UserDto;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.request.CreateUserRequest;
-import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.UserResponse;
+import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.CreateUserResponse;
+import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.UserDetailResponse;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -29,9 +30,16 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<CreateUserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
         UserDto userDto = UserDto.of(request);
-        UserResponse response = UserResponse.of(userService.createUser(userDto));
+        CreateUserResponse response = CreateUserResponse.of(userService.createUser(userDto));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDetailResponse> getUser(@PathVariable("userId") String userId) {
+        UserDto userDto = userService.getUserById(userId);
+        UserDetailResponse response = UserDetailResponse.of(userDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
