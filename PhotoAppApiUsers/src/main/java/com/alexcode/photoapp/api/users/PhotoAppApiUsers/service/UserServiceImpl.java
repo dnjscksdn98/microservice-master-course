@@ -1,5 +1,6 @@
 package com.alexcode.photoapp.api.users.PhotoAppApiUsers.service;
 
+import com.alexcode.photoapp.api.users.PhotoAppApiUsers.feign.AlbumServiceClient;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.dto.UserDto;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.entity.UserEntity;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.AlbumDetailResponse;
@@ -23,14 +24,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final Environment env;
-    private final RestTemplate restTemplate;
+//    private final RestTemplate restTemplate;
+    private final AlbumServiceClient albumServiceClient;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(Environment env, RestTemplate restTemplate, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(Environment env, AlbumServiceClient albumServiceClient, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.env = env;
-        this.restTemplate = restTemplate;
+        this.albumServiceClient = albumServiceClient;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -64,15 +66,19 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException(userId));
 
-        String albumUrl = String.format(env.getProperty("albums.path"), userId);
+        // 1. RestTemplate
+//        String albumUrl = String.format(env.getProperty("albums.path"), userId);
+//
+//        ResponseEntity<List<AlbumDetailResponse>> response = restTemplate.exchange(
+//                albumUrl,
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<List<AlbumDetailResponse>>() {});
+//
+//        List<AlbumDetailResponse> albums = response.getBody();
 
-        ResponseEntity<List<AlbumDetailResponse>> response = restTemplate.exchange(
-                albumUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<AlbumDetailResponse>>() {});
-
-        List<AlbumDetailResponse> albums = response.getBody();
+        // 2. Feign Client
+        List<AlbumDetailResponse> albums = albumServiceClient.getAlbums(userId);
 
         return UserDto.of(userEntity, albums);
     }
