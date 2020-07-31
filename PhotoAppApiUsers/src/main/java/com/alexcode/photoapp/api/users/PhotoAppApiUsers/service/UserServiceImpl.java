@@ -5,6 +5,9 @@ import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.dto.UserDto;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.entity.UserEntity;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.model.response.AlbumDetailResponse;
 import com.alexcode.photoapp.api.users.PhotoAppApiUsers.repository.UserRepository;
+import feign.FeignException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
@@ -28,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private final AlbumServiceClient albumServiceClient;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public UserServiceImpl(Environment env, AlbumServiceClient albumServiceClient, UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -78,7 +83,14 @@ public class UserServiceImpl implements UserService {
 //        List<AlbumDetailResponse> albums = response.getBody();
 
         // 2. Feign Client
-        List<AlbumDetailResponse> albums = albumServiceClient.getAlbums(userId);
+        List<AlbumDetailResponse> albums = null;
+
+        try {
+            albums = albumServiceClient.getAlbums(userId);
+
+        } catch(FeignException e) {
+            logger.error(e.getLocalizedMessage());
+        }
 
         return UserDto.of(userEntity, albums);
     }
