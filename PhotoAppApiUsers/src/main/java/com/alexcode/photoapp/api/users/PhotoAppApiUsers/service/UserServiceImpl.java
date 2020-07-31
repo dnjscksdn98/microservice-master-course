@@ -83,14 +83,7 @@ public class UserServiceImpl implements UserService {
 //        List<AlbumDetailResponse> albums = response.getBody();
 
         // 2. Feign Client
-        List<AlbumDetailResponse> albums = null;
-
-        try {
-            albums = albumServiceClient.getAlbums(userId);
-
-        } catch(FeignException e) {
-            logger.error(e.getLocalizedMessage());
-        }
+        List<AlbumDetailResponse> albums = albumServiceClient.getAlbums(userId);
 
         return UserDto.of(userEntity, albums);
     }
