@@ -27,3 +27,7 @@ logging:
               PhotoAppApiUsers:
                 feign:
                   AlbumServiceClient: DEBUG
+
+feign:
+  hystrix:
+    enabled: true
