@@ -16,3 +16,14 @@ spring:
 
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+logging:
+  level:
+    com:
+      alexcode:
+        photoapp:
+          api:
+            users:
+              PhotoAppApiUsers:
+                feign:
+                  AlbumServiceClient: DEBUG
