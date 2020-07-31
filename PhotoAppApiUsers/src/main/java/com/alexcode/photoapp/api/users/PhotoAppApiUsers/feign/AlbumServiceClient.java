@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "albums-ws")
+@FeignClient(name = "albums-ws", fallback = AlbumsFallback.class)
 public interface AlbumServiceClient {
 
     @GetMapping(path = "users/{userId}/albums")
