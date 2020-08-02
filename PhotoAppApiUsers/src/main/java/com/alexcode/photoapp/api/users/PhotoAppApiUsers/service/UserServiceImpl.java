@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public UserServiceImpl(Environment env, AlbumServiceClient albumServiceClient, UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -83,7 +83,9 @@ public class UserServiceImpl implements UserService {
 //        List<AlbumDetailResponse> albums = response.getBody();
 
         // 2. Feign Client
+        logger.info("Before calling albums Microservice");
         List<AlbumDetailResponse> albums = albumServiceClient.getAlbums(userId);
+        logger.info("After calling albums Microservice");
 
         return UserDto.of(userEntity, albums);
     }
