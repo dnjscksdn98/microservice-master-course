@@ -19,14 +19,13 @@ public class AlbumServiceClientFallback implements AlbumServiceClient {
 
     @Override
     public List<AlbumDetailResponse> getAlbums(String userId) {
-        if(cause instanceof FeignException && ((FeignException) cause).status() == 404) {
-            logger.error("404 error took place when getAlbums() was called with userId: "
-                    + userId + ", Error message: "
-                    + cause.getLocalizedMessage());
-        }
-        else {
-            logger.error("Other error took place: " + cause.getLocalizedMessage());
-        }
+//        if(cause instanceof FeignException && ((FeignException) cause).status() == 404) {
+//            logger.error("404 error took place when getAlbums() was called with userId: "
+//                    + userId + ", Error message: "
+//                    + cause.getLocalizedMessage());
+//        }
+        logger.error("An exception took place: " + cause.toString());
+
         return new ArrayList<>();
     }
 }
