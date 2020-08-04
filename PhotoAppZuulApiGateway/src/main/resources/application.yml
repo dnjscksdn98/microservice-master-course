@@ -33,12 +33,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8010/eureka
 
-jwt:
-  secretKey: fh279rfhf0923yrfwhfk2fh8923hjfkfheowf8123gfhidjfnv384jvaodfeb83gvbu42r93jbknl
-  authorizationHeader: Authorization
-  tokenPrefix: Bearer
-  tokenExpirationDays: 7
-
 management:
   endpoints:
     web:
