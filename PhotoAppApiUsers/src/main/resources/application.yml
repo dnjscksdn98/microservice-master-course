@@ -37,7 +37,16 @@ logging:
                 feign:
                   AlbumServiceClient: DEBUG
 
+  file: users-ws.log
+
 feign:
   hystrix:
     enabled: true
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
